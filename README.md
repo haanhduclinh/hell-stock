@@ -2,6 +2,9 @@
 
 - Pure ruby bot with power of eventmachine
 
+[![Code Climate](https://codeclimate.com/github/haanhduclinh/hell-stock.png)](https://codeclimate.com/github/haanhduclinh/hell-stock) [![CI](https://travis-ci.org/haanhduclinh/hell-stock.svg?branch=master)](https://travis-ci.org/haanhduclinh/hell-stock) [![Coverage Status](https://coveralls.io/repos/github/haanhduclinh/hell-stock/badge.svg?branch=master)](https://coveralls.io/github/haanhduclinh/hell-stock?branch=master)
+
+
 # What can we do with HellStock
 
  - Store document on local machine, easily to view as commanline
