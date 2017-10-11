@@ -108,6 +108,12 @@ Example
 - Improve performace
 - Refactor code
 
-## License
+# License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+- MIT
+
+# Author
+
+Thanks to
+- haanhduclinh.com
+- duytd
