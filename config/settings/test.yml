@@ -1,0 +1,4 @@
+system_commands_path: public/system_commands/**/*.hs
+logo_path: public/images/logo/**/*.txt
+stock_path: public/stock
+slack_api: <%= ENV['SLACK_API_KEY'] %>

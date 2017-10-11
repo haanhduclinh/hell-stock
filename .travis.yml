@@ -1,0 +1,10 @@
+language: ruby
+rvm:
+ - 2.3.4
+env:
+  - HEO_ENV=test
+install:
+  - bundle install
+script:
+  - ruby test/lib/hell_stock/command/test_view.rb
+  - rubocop

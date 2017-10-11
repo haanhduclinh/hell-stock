@@ -1,0 +1,4 @@
+system_commands_path: <%= ENV['SYSTEM_COMMANDS_PATH'] %>
+logo_path: <%= ENV['LOGO_PATH'] %>
+stock_path: <%= ENV['STOCK_PATH'] %>
+slack_api: <%= ENV['SLACK_API_KEY'] %>

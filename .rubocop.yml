@@ -1,0 +1,19 @@
+AllCops:
+  Include:
+    - lib/**
+    - test/**
+  Exclude:
+    - '**/Gemfile'
+    - 'block/**/*'
+    - 'test/block/**/*'
+    - '**/Rakefile'
+Documentation:
+  Enabled: false
+Metrics/MethodLength:
+  Max: 23
+Style/FrozenStringLiteralComment:
+  Enabled: false
+ClassLength:
+  Max: 250
+Metrics/LineLength:
+  Max: 100
