@@ -1,8 +1,7 @@
-require 'dotenv/load'
 require_relative '../lib/hell_stock_slack'
 
-require 'eventmachine'
 require 'slack-ruby-client'
+require 'terminal-table'
 
 TOKEN = Settings.slack_api
 
@@ -19,8 +18,10 @@ Slack::Web::Client.config do |config|
 end
 
 client = Slack::RealTime::Client.new
+
 heo = HellStockSlack.new do |c|
   c.logo_path = Settings.logo_path
+  c.stock_path = Settings.stock_path
 end
 
 client.on :hello do

@@ -34,7 +34,7 @@ SYSTEM_COMMANDS_PATH=public/system_commands/**/*.hs
 - start dns server on script folder
 
 ```
-HEO_ENV=production ruby script/start_dns_server.rb
+$ sh bin/dns.sh
 # "wellcome to the hell...| server start at 9999"
 ```
 
@@ -45,60 +45,107 @@ telnet localhost 9999
 ```
 
 # How to create your own `block`
-- create `.hs` file and put it in `system_commands_path` path
-
-First line alway begin with `#` to describe your block and example for user
-the second line is command. It can be linux command. 
-When we include `xxx` mean that we can pass variant. `xxx` must be include in filename and the second line of commands in `.hs` file (*hell stock file system)
-
-Example. I want create command to view progress on my PC. The command will be like `ps aux | grep -a` I create `L-xxx.hs`
+- create `.rb` file and put it in `block` path
+- Example
 
 ```
-# List all file in directory | example for user: $L-ruby
-ls -al | grep xxx
+# block/HE.rb
+# you command will be: $HE
+# to use BlockBase class
+require './lib/hell_stock/command/block_base'
+
+# require only for your block
+require 'time_difference'
+require 'date'
+
+module HellStock
+  module Command
+    # class name must same with file name HE
+    class HE < BlockBase
+
+      # name of your block. I will be display when type command
+      def name
+        "System manager"
+      end
+
+      # Emxmple. I will be display when type command
+      def example_to_use
+        "$HE -h"
+      end
+
+      # all your code will be run! in this methods
+      def run!
+        begin
+          opt_parser = OptionParser.new do |opts|
+            banner(opts)
+
+            opts.on("-t", "--[no-]telnet", "get connect telnet dns sever") do |_a|
+              return view_dns
+            end
+
+            # you need to add this to hear. This is add true or false
+            opts.on("-g", "--[no-]guide", "guide for contributor") do |_a|
+              return view_guide
+            end
+
+            # if you need pass data as params. You can do like that
+            opts.on("-bBRAND", "--branch=BRAND", "your branch name") do |n|
+              # n = your branch
+
+              # return string. I will be display
+              return display_link(n)
+            end
+
+            opts.on("-h", "--help", "Prints this help.") do
+              return opts.to_s
+            end
+
+            opts.on("-do", "--[no-]todolist", "Prints this todo list") do |_b|
+              return view_todo
+            end
+
+            opts.on("-v", "--version", "Prints version") do
+              return version
+            end
+          end
+
+          parse!(opt_parser)
+        rescue => e
+          return e.message
+        end
+      end
+
+      private
+
+      def view_dns
+        dns = "ip route get 1 | awk '{print $NF;exit}'"
+        response = Open3.capture3(dns)
+        "telnet #{response.first.chomp} 9999"
+      end
+
+      def view_guide
+        "https://github.com/haanhduclinh/hell-stock#how-to-contributor"
+      end
+
+      # display your block version. Default: 0.0.1
+
+      def version
+        "2.0.0"
+      end
+
+      def view_todo
+        todo = []
+        todo << "1. Fix rubocop https://github.com/haanhduclinh/hell-stock"
+        todo << "2. Write more unit test and rrrspec test"
+        todo << "3. Update README.md"
+        todo << "4. Encypt and Descrypt all data on public/stock use ENV['MASTER_KEY']\n"
+        todo.join("\n")
+      end
+    end
+  end
+end
 ```
 
-- When I access to Slack or DNS server. I only type
-
-
-```
-$L-a
-```
-
-HellStock will returns
-
-```
-total 80
-drwxrwxr-x 12 a161114 a161114 4096 Th10 11 14:40 .
-drwxrwxr-x  5 a161114 a161114 4096 Th08 23 11:26 ..
-drwxrwxr-x  2 a161114 a161114 4096 Th10  6 16:20 bin
-drwxrwxr-x  3 a161114 a161114 4096 Th10  6 17:08 block
-drwxrwxr-x  3 a161114 a161114 4096 Th07 27 11:09 config
-drwxrwxr-x  2 a161114 a161114 4096 Th07 17 08:26 data
--rw-rw-r--  1 a161114 a161114  170 Th10 11 14:47 .env
--rw-rw-r--  1 a161114 a161114  270 Th10  6 17:20 Gemfile
--rw-rw-r--  1 a161114 a161114 3843 Th10  6 17:18 Gemfile.lock
-drwxrwxr-x  7 a161114 a161114 4096 Th10 11 15:00 .git
--rw-rw-r--  1 a161114 a161114  231 Th10 11 14:38 .gitignore
-drwxrwxr-x  3 a161114 a161114 4096 Th08  8 12:47 lib
-drwxrwxr-x  5 a161114 a161114 4096 Th10 11 14:19 public
--rw-rw-r--  1 a161114 a161114 1742 Th10 11 15:08 README.md
--rw-rw-r--  1 a161114 a161114   30 Th10  6 17:19 .rspec
--rw-rw-r--  1 a161114 a161114  309 Th10  6 17:16 .rubocop.yml
-drwxrwxr-x  2 a161114 a161114 4096 Th10 11 14:43 script
-drwxrwxr-x  2 a161114 a161114 4096 Th10  6 17:19 spec
-drwxrwxr-x  4 a161114 a161114 4096 Th10 11 14:34 test
--rw-rw-r--  1 a161114 a161114  148 Th10 11 14:38 .travis.yml
-
-```
-
-You can create `.hs` file and pass variable for your file
-
-Example
-
-```
-# Choose random for code review. Ex: $P-linh_http://pull-request-url SENDER=xxx URL=xxx ruby /home/a161114/source/hell-stock/eventmachine-dev/block/random_code_review/random_code_review.rb
-```
 
 # How to contributor
 

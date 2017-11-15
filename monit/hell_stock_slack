@@ -1,0 +1,4 @@
+check process hellstockslack matching "hell_stock_slack"
+  start program = "/bin/su - duclinh -c 'cd /home/duclinh/source/hell-stock/heo-github && rvm use 2.3.4 && ruby /home/duclinh/source/hell-stock/heo-github/services/hell_stock_slack.rb'"
+  stop program = "/bin/bash -c '/usr/bin/pkill hellstockslack'"
+  if not exist for 2 cycles then restart

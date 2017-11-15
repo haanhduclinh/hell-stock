@@ -1,13 +1,10 @@
 # plug-in folder #
 ###################
-block/*
 test/block*
 
 # document folder #
 ###################
 public/stock/*
-public/system_commands/*
-lib/hell_stock/command/system_commands/*
 
 # Environment Config #
 #####################

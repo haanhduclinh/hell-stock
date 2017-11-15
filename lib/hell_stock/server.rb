@@ -1,5 +1,3 @@
-require 'eventmachine'
-
 module HellStock
   module Server
     module_function

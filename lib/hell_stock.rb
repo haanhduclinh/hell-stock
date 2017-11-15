@@ -1,12 +1,4 @@
-require 'eventmachine'
-require_relative 'hell_stock/server'
-require_relative 'hell_stock/type'
-require_relative 'hell_stock/helper'
-require_relative 'hell_stock/command/clear'
-require_relative 'hell_stock/command/search'
-require_relative 'hell_stock/command/system'
-require_relative 'hell_stock/command/view'
-require 'pry'
+require_relative 'hell_stock/init'
 
 module HellStock
   include HellStock::Command
